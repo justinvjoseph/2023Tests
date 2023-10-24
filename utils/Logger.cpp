@@ -46,7 +46,7 @@ std::shared_ptr<Logger> Logger::GetInstance() {
 * @param message: Log Message
 * @param messageLevel: Log Level, LogLevel::DEBUG by default
 */
-void Logger::Log(std::string codeFile, int codeLine, std::string message, LogLevel messageLevel = LogLevel::DEBUG) {
+void Logger::Log(std::string codeFile, int codeLine, std::string message, LogLevel messageLevel) {
 	if (messageLevel <= logLevel) {
 		std::string logType;
 		//Set Log Level Name

@@ -34,7 +34,7 @@ public:
 						   LogLevel level,
 						   LogOutput output);
 
-	void Log(std::string codeFile, int codeLine, std::string message, LogLevel messageLevel);
+	void Log(std::string codeFile, int codeLine, std::string message, LogLevel messageLevel = LogLevel::DEBUG);
 
 	LogOutput GetLogOutput(const std::string& logOutput);
 	LogLevel GetLogLevel(const std::string& logLevel);
