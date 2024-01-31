@@ -1,5 +1,6 @@
 
 #include "Logger.hpp"
+#include "PIDController.h"
 
 using namespace rms_utils;
 
@@ -9,14 +10,22 @@ int main() {
 
     logger->SetLogPreferences("textLog.txt", LogLevel::DEBUG, LogOutput::FILE);
 
-    logger->Log("File", 1, "Testing 1");
-    logger->Log("File", 1, "Testing 2");
-    logger->Log("File", 1, "Testing 3");
-    logger->Log("File", 1, "Testing 4");
-    logger->Log("File", 1, "Testing 55");
-    logger->Log("File", 1, "Testing 66");
-    logger->Log("File", 1, "Testing 1345");
-    logger->Log("File", 1, "Testing 1123124");
+    PIDController pid1(0.18, 0.000000000001, 0.05);
+    pid1.reset();
+    pid1.setSetpoint(120);
+    pid1.setInputRange(0, 120);
+    pid1.setOutputRange(0, 90); // power
+    pid1.setTolerance(1);
+    pid1.enable();
+
+    double input = 30;
+    do {
+        auto val = pid1.performPID(input);
+        input+= 5;
+        std::cout << "result:" << val << ", input:" << input << "\n";
+
+    } while (!pid1.onTarget());
+
 
     return 0;
 }
